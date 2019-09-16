@@ -1,0 +1,9 @@
+$bg-color: #3b9994;
+$box-color: #ff88ae;
+
+body { 
+    background-color: $bg-color; 
+    .box {  
+        background-color: $box-color; 
+    }
+}
