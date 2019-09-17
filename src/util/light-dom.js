@@ -1,84 +1,83 @@
-const $$ = document.querySelector;
+export function $$(selector) {
+    return document.querySelector(selector);
+}
 
-const $$$ = document.querySelectorAll;
+export function $$$(selector) {
+    return document.querySelectorAll(selector);
+}
 
-const addClass = (elem, className) => {
-    const { classList } = elem;
+export function findChild(el, selector) {
+    const child = el.querySelector(selector);
+    return child;
+}
+
+export function findChildren(el, selector) {
+    const children = el.querySelectorAll(selector);
+    return children;
+}
+
+export function addClass(el, className) {
+    const { classList } = el;
     classList.add(className);
-};
-const removeClass = (elem, className) => {
-    const { classList } = elem;
+}
+export function removeClass(el, className) {
+    const { classList } = el;
     classList.remove(className);
-};
+}
 
-const containClass = (elem, className) => {
-    const { classList } = elem;
+export function containClass(el, className) {
+    const { classList } = el;
     const contains = classList.contains(className);
     return contains;
-};
+}
 
-const replaceHref = href => {
+export function replaceHref(href) {
     document.location.href = href;
-};
+}
 
-const create = tagName => {
-    const elem = document.createElement(tagName);
-    return elem;
-};
+export function create(tagName) {
+    const el = document.createelent(tagName);
+    return el;
+}
 
-const onAll = (elemArr, eventName, fn) => {
-    for (const elem of elemArr) {
-        elem.addEventListener(eventName, fn);
+export function onAll(elArr, eventName, fn) {
+    for (const el of elArr) {
+        el.addEventListener(eventName, fn);
     }
-};
+}
 
-const on = (elem, eventName, fn) => {
-    elem.addEventListener(eventName, fn);
-};
+export function on(el, eventName, fn) {
+    el.addEventListener(eventName, fn);
+}
 
-const off = (el, action, fn) => {
+export function off(el, action, fn) {
     el.removeEventListener(action, fn);
-};
+}
 
-const setStyle = (el, proptName, proptVal) => {
+export function setStyle(el, proptName, proptVal) {
     el.style[proptName] = proptVal;
-};
+}
 
-const hasAttribute = (el, attr) => {
+export function hasAttribute(el, attr) {
     return el.hasAttribute(attr);
-};
+}
 
-const getAttribute = (el, attr) => {
+export function getAttribute(el, attr) {
     return el.getAttribute(attr);
-};
+}
 
-const setAttribute = (el, attr, val) => {
+export function setAttribute(el, attr, val) {
     el.setAttribute(attr, val);
-};
+}
 
-const removeAttribute = (el, attr) => {
+export function removeAttribute(el, attr) {
     el.removeAttribute(attr);
-};
+}
 
-const setHTML = (el, html) => {
+export function setHTML(el, html) {
     el.innerHTML = html;
-};
+}
 
-export default {
-    $$,
-    $$$,
-    addClass,
-    removeClass,
-    containClass,
-    replaceHref,
-    create,
-    on,
-    onAll,
-    off,
-    setStyle,
-    hasAttribute,
-    getAttribute,
-    setAttribute,
-    removeAttribute,
-    setHTML
-};
+export function getOriginUrl() {
+    return document.location.origin;
+}
