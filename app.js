@@ -8,7 +8,7 @@ const notFoundHandler = require("./services/notfound-handler");
 const serverInternalHandler = require("./services/serverinternal-handler");
 const mainRouter = require("./routes/index");
 
-const PORT = 8090;
+const PORT = 80;
 const STATIC_PATH = express.static(path.join(__dirname, "public"));
 const HTML_FILE = path.join(__dirname, "public/index.html");
 
