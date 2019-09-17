@@ -2,12 +2,15 @@ const express = require("express");
 
 const router = express.Router();
 
+const mainCarouselItems = require("../public/json/main-carousel-items.json");
+const miniCarouselItems = require("../public/json/mini-carousel-items.json");
+
 function getMainCarorselData(req, res) {
-    res.json("main carousel data");
+    res.json(mainCarouselItems);
 }
 
 function getMiniCarorselData(req, res) {
-    res.json("mini carousel data");
+    res.json(miniCarouselItems);
 }
 
 router.get("/main-items", getMainCarorselData);
