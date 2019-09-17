@@ -1,0 +1,3 @@
+class MainCarouselView {
+    constructor() {}
+}
