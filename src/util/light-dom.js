@@ -36,7 +36,7 @@ export function replaceHref(href) {
 }
 
 export function create(tagName) {
-    const el = document.createelent(tagName);
+    const el = document.createElement(tagName);
     return el;
 }
 
