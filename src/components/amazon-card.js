@@ -10,9 +10,8 @@ import {
     removeClass,
     getIndexOfNodeList
 } from "../util/light-dom.js";
-
-import Observable from "../util/observable.js";
 import _ from "../util/constants.js";
+import Observable from "../util/observable.js";
 
 class AmazonCard extends Observable {
     constructor(containerSelector, data) {
@@ -68,6 +67,9 @@ class AmazonCard extends Observable {
 
         this.removeFocusStyle();
         this.applyFocus(index);
+
+        const slideIndex = this.getSelectedSlideIndex(index, 0);
+        this.notify(_.EVENT_MOVE_TO_CAROUSEL, slideIndex);
     }
 
     circleClickHandler(e) {
@@ -199,10 +201,6 @@ class AmazonCard extends Observable {
         resultIndex += circleIndex;
 
         return resultIndex;
-    }
-
-    moveToSlide(targetIndex) {
-        console.log("targetIndex", targetIndex);
     }
 
     get items() {
