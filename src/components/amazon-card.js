@@ -3,6 +3,7 @@ import {
     on,
     containClass,
     findChildren,
+    findChild,
     setHTML,
     create,
     setStyle,
@@ -27,6 +28,7 @@ class AmazonCard extends Observable {
         this.__CLASS_AMAZON_CONTAINER = "amazon-card-container";
         this.__CLASS_AMAZON_CARD = `${this.__CLASS_AMAZON_CONTAINER}__item`;
         this.__CLASS_AMAZON_IMG = `${this.__CLASS_AMAZON_CARD}__img`;
+        this.__CLASS_AMAZON_IMG_SPRITE_PLAY = `${this.__CLASS_AMAZON_IMG}-sprite-play`;
         this.__CLASS_AMAZON_TITLE = `${this.__CLASS_AMAZON_CARD}__title`;
         this.__CLASS_AMAZON_CIRCLE_CONTAINER = `${this.__CLASS_AMAZON_CARD}__circle-container`;
         this.__CLASS_AMAZON_CIRCLE = `${this.__CLASS_AMAZON_CIRCLE_CONTAINER}__circle`;
@@ -41,6 +43,8 @@ class AmazonCard extends Observable {
 
         this.circleClickHandler = this.circleClickHandler.bind(this);
         this.cardClickHandler = this.cardClickHandler.bind(this);
+        this.boxOverHandler = this.boxOverHandler.bind(this);
+        this.boxOutHandler = this.boxOutHandler.bind(this);
 
         this.makeElements();
         this.makeElementVariables();
@@ -52,6 +56,8 @@ class AmazonCard extends Observable {
     setListeners() {
         on(this.__container, "click", this.cardClickHandler);
         on(this.__container, "click", this.circleClickHandler);
+        on(this.__cardContainers[0], "mouseover", this.boxOverHandler);
+        on(this.__container, "mouseover", this.boxOutHandler);
     }
 
     cardClickHandler(e) {
@@ -95,6 +101,28 @@ class AmazonCard extends Observable {
 
         this.applyCircleFocus(containerIndex, circleIndex);
         this.notify("MOVE_TO_CAROUSEL", slideIndex);
+    }
+
+    boxOverHandler(e) {
+        let targetCard = e.target.parentElement;
+        if (
+            !containClass(targetCard, this.__CLASS_AMAZON_CARD) ||
+            containClass(this.__boxImg, this.__CLASS_AMAZON_IMG_SPRITE_PLAY) ||
+            this.__focusCard === targetCard
+        ) {
+            return;
+        }
+
+        addClass(this.__boxImg, this.__CLASS_AMAZON_IMG_SPRITE_PLAY);
+    }
+
+    boxOutHandler(e) {
+        let targetCard = e.target.parentElement;
+        if (containClass(targetCard, this.__CLASS_AMAZON_CARD)) {
+            return;
+        }
+
+        removeClass(this.__boxImg, this.__CLASS_AMAZON_IMG_SPRITE_PLAY);
     }
 
     makeElements() {
@@ -141,6 +169,11 @@ class AmazonCard extends Observable {
                 findChildren(circleContainer, `.${this.__CLASS_AMAZON_CIRCLE}`)
             );
         }
+
+        this.__boxImg = findChild(
+            this.__cardContainers[0],
+            `.${this.__CLASS_AMAZON_IMG}`
+        );
     }
 
     applyCircleFocus(containerIndex, circleIndex) {
