@@ -2,18 +2,24 @@ const express = require("express");
 
 const router = express.Router();
 
-const mainCarouselItems = require("../public/json/main-carousel-items.json");
-const miniCarouselItems = require("../public/json/mini-carousel-items.json");
+const amazonCardData = require("../public/json/amazon-card-data.json");
+const amazonCarouselData = require("../public/json/amazon-carousel-data.json");
+const miniCarouselData = require("../public/json/carousel-data.json");
 
-function getMainCarorselData(req, res) {
-    res.json(mainCarouselItems);
+function getAmazonCardData(req, res) {
+    res.json(amazonCardData);
 }
 
-function getMiniCarorselData(req, res) {
-    res.json(miniCarouselItems);
+function getAmazonCarouselData(req, res) {
+    res.json(amazonCarouselData);
 }
 
-router.get("/main-items", getMainCarorselData);
-router.get("/mini-items", getMiniCarorselData);
+function getMiniCarouselData(req, res) {
+    res.json(miniCarouselData);
+}
+
+router.get("/amazon-card", getAmazonCardData);
+router.get("/amazon-carousel", getAmazonCarouselData);
+router.get("/mini-carousel", getMiniCarouselData);
 
 module.exports = router;
