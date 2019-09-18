@@ -38,16 +38,12 @@ class AmazonCard extends Observable {
         this.__data =
             data.length > 5 ? data.slice(0, this.__ITEM_MAX_LENGTH) : data;
         this.__container = $$(containerSelector);
-        this.__focusIndex = 0;
-
-        addClass(this.__container, "amazon-card-section");
 
         this.circleClickHandler = this.circleClickHandler.bind(this);
         this.cardClickHandler = this.cardClickHandler.bind(this);
 
         this.makeElements();
         this.makeElementVariables();
-        this.makeCards();
         this.setListeners();
 
         this.applyFocus(0);
@@ -147,13 +143,6 @@ class AmazonCard extends Observable {
         }
     }
 
-    makeCards() {
-        this.__cardData = [];
-        for (const item of this.__data) {
-            this.__cardData.push(item);
-        }
-    }
-
     applyCircleFocus(containerIndex, circleIndex) {
         if (this.__selectedCircle) {
             removeClass(
@@ -172,23 +161,18 @@ class AmazonCard extends Observable {
     }
 
     applyFocusStyle(index) {
-        this.__focusCard = {
-            container: this.__cardContainers[index],
-            data: this.__cardData[index]
-        };
+        this.__focusCard = this.__cardContainers[index];
         this.__focusCardImg = this.__cardImgs[index];
 
-        addClass(this.__focusCard.container, this.__CLASS_SHADOW);
-        addClass(this.__focusCard.container, this.__CLASS_CARD_SCALE_UP);
+        addClass(this.__focusCard, this.__CLASS_SHADOW);
+        addClass(this.__focusCard, this.__CLASS_CARD_SCALE_UP);
         addClass(this.__focusCardImg, this.__CLASS_IMG_SCALE_UP);
-
-        this.__focusIndex = index;
     }
 
     removeFocusStyle() {
         if (this.__focusCard) {
-            removeClass(this.__focusCard.container, this.__CLASS_SHADOW);
-            removeClass(this.__focusCard.container, this.__CLASS_CARD_SCALE_UP);
+            removeClass(this.__focusCard, this.__CLASS_SHADOW);
+            removeClass(this.__focusCard, this.__CLASS_CARD_SCALE_UP);
             removeClass(this.__focusCardImg, this.__CLASS_IMG_SCALE_UP);
         }
     }
@@ -209,14 +193,6 @@ class AmazonCard extends Observable {
 
     get itemMaxLength() {
         return this.__ITEM_MAX_LENGTH;
-    }
-
-    get focusCard() {
-        return this.__focusCard;
-    }
-
-    get focusIndex() {
-        return this.__focusIndex;
     }
 }
 
