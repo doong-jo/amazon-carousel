@@ -81,3 +81,7 @@ export function setHTML(el, html) {
 export function getOriginUrl() {
     return document.location.origin;
 }
+
+export function getIndexOfNodeList(nodelist, targetElement) {
+    return [...nodelist].indexOf(targetElement);
+}
