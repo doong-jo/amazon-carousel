@@ -1,0 +1,167 @@
+.amazon-card-section {}
+
+.amazon-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2rem 0;
+
+    .amazon-card-container__item {
+        margin: auto 0.2rem;
+        flex: 0 0 auto;
+        height: fit-content;
+        cursor: pointer;
+
+        .amazon-card-container__item__img {
+            background-repeat: no-repeat, repeat;
+            background-size: 75rem; // half (1200 x 630)
+            width: 9.37rem; // 150px
+            height: 9.37rem; // 210px
+            margin: 0 auto;
+        }
+
+        .amazon-card-container__item__img-scale-up {
+            transform: scale(1.2);
+            position: relative;
+            top: 0.5rem;
+        }
+
+        .amazon-card-container__item__title {
+            text-align: center;
+            color: #FFF;
+            font-size: 1.2rem;
+            padding-bottom: 1rem;
+        }
+
+        .amazon-card-container__item__img:nth-child(1):hover {
+            animation: card-img-play-1 500ms steps(8), card-img-play-2 500ms steps(8), card-img-play-3 500ms steps(8);
+            animation-delay: 0s, 500ms, 1000ms;
+        }
+
+        @-webkit-keyframes card-img-play-1 {
+            from {
+                background-position-x: 0rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+            }
+        }
+
+        @keyframes card-img-play-1 {
+            from {
+                background-position-x: 0rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+            }
+        }
+
+        @-webkit-keyframes card-img-play-2 {
+            from {
+                background-position-x: 0rem;
+                background-position-y: -13.125rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+                background-position-y: -13.125rem;
+            }
+        }
+
+        @keyframes card-img-play-2 {
+            from {
+                background-position-x: 0rem;
+                background-position-y: -13.125rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+                background-position-y: -13.125rem;
+            }
+        }
+
+        @-webkit-keyframes card-img-play-3 {
+            from {
+                background-position-x: 0rem;
+                background-position-y: -26.25rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+                background-position-y: -26.25rem;
+            }
+        }
+
+        @keyframes card-img-play-3 {
+            from {
+                background-position-x: 0rem;
+                background-position-y: -26.25rem;
+            }
+
+            to {
+                background-position-x: -75rem;
+                background-position-y: -26.25rem;
+            }
+        }
+    }
+
+    .amazon-card-shadow {
+        box-shadow: 0 0 1rem black;
+    }
+
+    .amazon-card-container__item-scale-up {
+        height: 14rem;
+        width: 12rem;
+        margin: 0 -1rem;
+        z-index: 1;
+
+        .amazon-card-container__item__title {
+            margin-top: 1.1rem;
+        }
+
+        .amazon-card-container__item__circle-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .amazon-card-container__item__circle-container__circle {
+            background-image: url('/img/circle-solid.svg');
+            background-repeat: no-repeat;
+            width: 0.6rem;
+            height: 0.6rem;
+            margin: 0rem 0.1rem;
+            opacity: 0.5;
+        }
+
+        .circle-selected {
+            opacity: 1.0;
+        }
+    }
+
+    .amazon-card-container__item:nth-child(1) {
+        background: linear-gradient(30deg, #2C88AE 40%, #00A8E1 90%, #00A8E1 48px);
+    }
+
+    .amazon-card-container__item:nth-child(2) {
+        background: linear-gradient(30deg, #CC0C39 40%, #FF6138 90%, #FF6138 48px);
+    }
+
+    .amazon-card-container__item:nth-child(3) {
+        background: linear-gradient(30deg, #A90067 40%, #E31F64 90%, #E31F64 48px);
+    }
+
+    .amazon-card-container__item:nth-child(4) {
+        background: linear-gradient(30deg, #008577 40%, #36C2B4 90%, #36C2B4 48px);
+    }
+
+    .amazon-card-container__item:nth-child(5) {
+        background: linear-gradient(30deg, #FF6138 40%, #FFC400 90%, #FFC400 48px);
+    }
+
+    .amazon-card-container__item__circle-container {
+        display: none;
+    }
+}
