@@ -9,13 +9,13 @@ import AmazonCard from "./components/amazon-card.js";
 import Carousel from "./components/carousel.js";
 
 (async function makeAmazonCard() {
-    let amazonCardData;
+    let miniCarouselData;
     try {
-        amazonCardData = await requestServer(
-            "GET",
+        miniCarouselData = await requestServer(
+            _.METHOD_GET,
             {},
-            `${getOriginUrl()}/carousel/amazon-card`,
-            { "Content-Type": "application/json" }
+            `${getOriginUrl()}${_.URL.MINI_CAROUSEL}`,
+            _.HEADER_TYPE_JSON
         );
     } catch (e) {
         console.error(e.message);
@@ -25,22 +25,43 @@ import Carousel from "./components/carousel.js";
     let amazonCarouselData;
     try {
         amazonCarouselData = await requestServer(
-            "GET",
+            _.METHOD_GET,
             {},
-            `${getOriginUrl()}/carousel/amazon-carousel`,
-            { "Content-Type": "application/json" }
+            `${getOriginUrl()}${_.URL.AMAZNON_CAROUSEL}`,
+            _.HEADER_TYPE_JSON
         );
     } catch (e) {
         console.error(e.message);
         return;
     }
 
+    let amazonCardData;
+    try {
+        amazonCardData = await requestServer(
+            _.METHOD_GET,
+            {},
+            `${getOriginUrl()}${_.URL.CARD}`,
+            _.HEADER_TYPE_JSON
+        );
+    } catch (e) {
+        console.error(e.message);
+        return;
+    }
+
+    const miniCarousel = new Carousel("#mini-carousel", miniCarouselData, {
+        type: "mini",
+        autoPlay: true,
+        autoPlaySpeed: 3000,
+        stopWhenPageHidden: true
+    });
+    const amazonCard = new AmazonCard("#amazon-card", amazonCardData);
     const amazonCardCarousel = new Carousel(
         "#amazon-card-carousel",
         amazonCarouselData,
-        {}
+        {
+            type: "full"
+        }
     );
-    const amazonCard = new AmazonCard("#amazon-card", amazonCardData);
 
     amazonCard.subscribe(
         _.EVENT_MOVE_TO_CAROUSEL,
