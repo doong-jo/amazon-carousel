@@ -19,9 +19,10 @@
         }
 
         .amazon-card-container__item__img-scale-up {
-            transform: scale(1.2);
-            position: relative;
-            top: 0.5rem;
+            position: absolute;
+            top: 0rem;
+            left: 0;
+            right: 0;
         }
 
         .amazon-card-container__item__title {
@@ -105,24 +106,29 @@
         }
     }
 
-    .amazon-card-shadow {
-        box-shadow: 0 0 1rem black;
-    }
-
     .amazon-card-container__item-scale-up {
         height: 14rem;
         width: 12rem;
         margin: 0 -1rem;
-        z-index: 1;
+        z-index: 2;
+        position: relative;
 
         .amazon-card-container__item__title {
             margin-top: 1.1rem;
+            position: absolute;
+            top: 9rem;
+            left: 0;
+            right: 0;
         }
 
         .amazon-card-container__item__circle-container {
             display: flex;
             flex-direction: row;
             justify-content: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 12.5rem;
         }
 
         .amazon-card-container__item__circle-container__circle {
@@ -137,6 +143,40 @@
         .circle-selected {
             opacity: 1.0;
         }
+    }
+
+    .amazon-card-container__item-scale-up::before {
+        content: "";
+        position: relative;
+        display: inline-block;
+        top: 1rem;
+        left: -2rem;
+        width: 2rem;
+        height: 11.7rem;
+        background: linear-gradient(90deg, #00000000, #000 150%);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .amazon-card-container__item-scale-up::after {
+        content: "";
+        position: relative;
+        display: inline-block;
+        top: 1.1rem;
+        left: 10rem;
+        width: 2rem;
+        height: 11.8rem;
+        background: linear-gradient(90deg, #000000 -50%, #00000000);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .amazon-card-container__item-scale-up:first-child:before {
+        background: none;
+    }
+
+    .amazon-card-container__item-scale-up:last-child:after {
+        background: none;
     }
 
     .amazon-card-container__item:nth-child(1) {

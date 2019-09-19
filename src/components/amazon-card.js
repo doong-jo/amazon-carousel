@@ -35,7 +35,6 @@ class AmazonCard extends Observable {
         this.__CLASS_AMAZON_CIRCLE_SELECTED = "circle-selected";
         this.__CLASS_CARD_SCALE_UP = `${this.__CLASS_AMAZON_CARD}-scale-up`;
         this.__CLASS_IMG_SCALE_UP = `${this.__CLASS_AMAZON_IMG}-scale-up`;
-        this.__CLASS_SHADOW = `${this.__CLASS_AMAZON_CONTAINER}-shadow`;
 
         this.__data =
             data.length > 5 ? data.slice(0, this.__ITEM_MAX_LENGTH) : data;
@@ -197,14 +196,12 @@ class AmazonCard extends Observable {
         this.__focusCard = this.__cardContainers[index];
         this.__focusCardImg = this.__cardImgs[index];
 
-        addClass(this.__focusCard, this.__CLASS_SHADOW);
         addClass(this.__focusCard, this.__CLASS_CARD_SCALE_UP);
         addClass(this.__focusCardImg, this.__CLASS_IMG_SCALE_UP);
     }
 
     removeFocusStyle() {
         if (this.__focusCard) {
-            removeClass(this.__focusCard, this.__CLASS_SHADOW);
             removeClass(this.__focusCard, this.__CLASS_CARD_SCALE_UP);
             removeClass(this.__focusCardImg, this.__CLASS_IMG_SCALE_UP);
         }
