@@ -35,9 +35,8 @@
             height: 14rem;
         }
 
-        .scroller-slide {
+        .scroller-slide-list {
             display: flex;
-            transition: transform 300ms;
         }
 
         .scroller-view__a {
@@ -127,7 +126,7 @@
         display: flex;
         justify-content: center;
         position: relative;
-        height: 20rem;
+        height: 23rem;
         flex-direction: row;
         padding: 1rem;
         flex: 1 70rem;
@@ -140,9 +139,8 @@
             height: auto;
         }
 
-        .scroller-slide {
+        .scroller-slide-list {
             display: flex;
-            transition: transform 300ms;
         }
 
         .scroller-arrow {
@@ -172,8 +170,7 @@
             justify-content: flex-end;
             background-size: auto 400px;
             background: linear-gradient(to right, #FFF, #FFF 15px, rgba(255, 255, 255, 0) 45px);
-            background-position-x: center;
-            background-position-y: inherit;
+            background-position: center;
         }
     }
 
@@ -186,7 +183,7 @@
     .content {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-evenly;
         flex: 0 0 26rem;
         margin-left: 2rem;
 
