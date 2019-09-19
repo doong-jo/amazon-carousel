@@ -61,13 +61,13 @@
         }
 
         .scroller-arrow:first-child {
-            background-image: url('http://localhost/img/left-arrow-solid.svg');
+            background-image: url('/img/left-arrow-solid.svg');
             background-repeat: no-repeat;
             right: 100%;
         }
 
         .scroller-arrow:last-child {
-            background-image: url('http://localhost/img/right-arrow-solid.svg');
+            background-image: url('/img/right-arrow-solid.svg');
             background-repeat: no-repeat;
             left: 100%;
         }
@@ -155,13 +155,13 @@
 
         .scroller-arrow:first-child {
             z-index: 1;
-            background-image: url('http://localhost/img/circle-left-solid.svg');
+            background-image: url('/img/circle-left-solid.svg');
             background-repeat: no-repeat;
         }
 
         .scroller-arrow:last-child {
             z-index: 1;
-            background-image: url('http://localhost/img/circle-right-solid.svg');
+            background-image: url('/img/circle-right-solid.svg');
             background-repeat: no-repeat;
         }
 
