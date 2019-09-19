@@ -11,16 +11,17 @@
     }
 
     .scroller-container::before {
-        position: relative;
+        position: absolute;
         content: "";
-        left: 8rem;
-        width: 2rem;
-        top: -3rem;
+        left: 1rem;
+        width: 14rem;
+        height: 1rem;
+        top: 3rem;
         background: #222;
         -webkit-box-shadow: 0 0px 36px 3px #222;
-        box-shadow: 0 0px 36px 3px #222;
+        box-shadow: 0 0px 36px 6px #222;
         -webkit-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+        transform: rotate(180deg);
     }
 
     .scroller-container {
