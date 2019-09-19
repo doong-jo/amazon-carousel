@@ -1,6 +1,7 @@
 import "./styles/normarlize.css";
 import "./styles/index.scss";
 import "./styles/amazon-card.scss";
+import "./styles/carousel.scss";
 
 import { getOriginUrl } from "./util/light-dom.js";
 import _ from "./util/constants.js";
@@ -8,7 +9,7 @@ import { requestServer, watchPageVisibility } from "./util/light-api.js";
 import AmazonCard from "./components/amazon-card.js";
 import Carousel from "./components/carousel.js";
 
-(async function makeAmazonCard() {
+async function fetchData() {
     let miniCarouselData;
     try {
         miniCarouselData = await requestServer(
@@ -48,9 +49,20 @@ import Carousel from "./components/carousel.js";
         return;
     }
 
+    return { miniCarouselData, amazonCarouselData, amazonCardData };
+}
+
+(async function makeAmazonCard() {
+    const {
+        miniCarouselData,
+        amazonCarouselData,
+        amazonCardData
+    } = await fetchData();
+
     const miniCarousel = new Carousel("#mini-carousel", miniCarouselData, {
         type: "mini",
         autoPlay: true,
+        slideSpeed: 300,
         autoPlaySpeed: 3000,
         stopWhenPageHidden: true
     });
