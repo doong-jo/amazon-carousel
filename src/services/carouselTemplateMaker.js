@@ -1,9 +1,31 @@
+import _ from "../util/constants.js";
+import { caculateStartPosOfCarousel } from "../util/calculator.js";
+
+const makeSortSlideImages = slideImgs => {
+    let indexArr = [];
+    const sortSlideImgs = [];
+    const startPos = caculateStartPosOfCarousel(slideImgs.length);
+
+    for (let i = startPos + 1; i < slideImgs.length; i++) {
+        sortSlideImgs.push(slideImgs[i]);
+        indexArr.push(i);
+    }
+
+    for (let i = 0; i <= startPos; i++) {
+        sortSlideImgs.push(slideImgs[i]);
+        indexArr.push(i);
+    }
+
+    return { sortSlideImgs, indexArr };
+};
+
 const CarouselTemplateMaker = {
-    makeMini(data) {
-        const { children } = data;
-        const slideImgs = children.reduce((acc, cur) => {
+    makeMini(data, startPosX) {
+        const { sortSlideImgs } = makeSortSlideImages(data.children);
+
+        const slideImgs = sortSlideImgs.reduce((acc, cur) => {
             const { link, img } = cur;
-            acc += /* html */ `<a class="scroller-view__a" href="${link}">
+            acc += /* html */ `<a class="scroller-slide scroller-view__a" href="${link}">
             <img class="scroller-view__img" src="${img}"/>
             </a>`;
             return acc;
@@ -14,7 +36,7 @@ const CarouselTemplateMaker = {
             <div class="scroller-container">
                 <div class="scroller-arrow"></div>
                 <div class="scroller-view">
-                    <div class="scroller-slide">
+                    <div class="scroller-slide-list" style="transform: translateX(-${startPosX}rem)">
                         ${slideImgs}
                     </div>
                 </div>
@@ -39,50 +61,45 @@ const CarouselTemplateMaker = {
         return miniTemplate;
     },
 
-    makeFull(data) {
-        console.log(data);
+    makeFull(data, startPosX) {
+        let slideImgs = [];
+        data.forEach(v => {
+            v.forEach(item => {
+                slideImgs.push(item);
+            });
+        });
+        const { sortSlideImgs, indexArr } = makeSortSlideImages(slideImgs);
+
+        const slideHtml = sortSlideImgs.reduce((acc, cur, i) => {
+            acc += /* html */ `
+            <div class="scroller-slide img" data-index="${indexArr[i]}" style="background-image: url(${cur.image});">
+                <div class="content">
+                    <div class="badage">
+                        ${cur.badage}
+                    </div>
+                    <div class="title">
+                        ${cur.title}
+                    </div>
+                    <div class="body">
+                        ${cur.body}
+                    </div>
+                    <a href="${cur.link}">
+                        <div class="footer">
+                            <span>${cur.footer}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>`;
+            return acc;
+        }, "");
+
         const fullTemplate = /* html */ `
         <div class="full-carousel-container">
             <div class="scroller-container">
                 <div class="scroller-arrow"></div>
                 <div class="scroller-view">
-                    <div class="scroller-slide">
-                        <div class="img">
-                            <div class="content">
-                                <div class="badage">
-                                    FAST, FREE DELIVERY
-                                </div>
-                                <div class="title">
-                                    Fast, FREE delivery on over 100 million items
-                                </div>
-                                <div class="body">
-                                    Super-fast delivery, tens of millions of items, and flexible delivery options to fit your life. Plus, Prime members get FREE One-Day Delivery on tens of millions of items.
-                                </div>
-                                <a href="/">
-                                    <div class="footer">
-                                        <span>Explore Prime Delivery</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img">
-                            <div class="content">
-                                <div class="badage">
-                                    FAST, FREE DELIVERY
-                                </div>
-                                <div class="title">
-                                    Fast, FREE delivery on over 100 million items
-                                </div>
-                                <div class="body">
-                                    Super-fast delivery, tens of millions of items, and flexible delivery options to fit your life. Plus, Prime members get FREE One-Day Delivery on tens of millions of items.
-                                </div>
-                                <a href="/">
-                                    <div class="footer">
-                                        <span>Explore Prime Delivery</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="scroller-slide-list" style="transform: translateX(-${startPosX}rem)">
+                        ${slideHtml}
                     </div>
                 </div>
                 <div class="scroller-arrow"></div>
