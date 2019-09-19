@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const logger = require("morgan");
+// const logger = require("morgan");
 
 const app = express();
 
@@ -12,7 +12,7 @@ const PORT = 80;
 const STATIC_PATH = express.static(path.join(__dirname, "public"));
 const HTML_FILE = path.join(__dirname, "public/index.html");
 
-app.use(logger("dev"));
+// app.use(logger("dev"));
 app.use(express.json());
 app.use(
     express.urlencoded({
