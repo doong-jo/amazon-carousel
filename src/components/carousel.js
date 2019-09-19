@@ -78,6 +78,12 @@ class Carousel {
         );
 
         this.playAuto();
+
+        if (options.stopWhenPageHidden) {
+            watchPageVisibility(this.playAuto, () => {
+                clearInterval(this.__autoPlayAlarm);
+            });
+        }
     }
 
     makeElements(type) {
