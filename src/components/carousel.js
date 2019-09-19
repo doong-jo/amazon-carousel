@@ -6,6 +6,7 @@ import {
     setStyle,
     setHTML
 } from "../util/light-dom.js";
+import { watchPageVisibility } from "../util/light-api.js";
 import _ from "../util/constants.js";
 import { caculateStartPosOfCarousel } from "../util/calculator.js";
 import templateMaker from "../services/carouselTemplateMaker.js";
@@ -39,13 +40,18 @@ class Carousel {
             stopWhenPageHidden: false
         };
         this.applyOptions(options);
-        if (this.__options.type === this.__TYPE_FULL) {
-            this.__CLASS_CAROUSEL_CONTAINER = "full-carousel-container";
-            this.__slideWidth = this.__WIDTH_FULL_CAROUSEL_SLIDE;
-        } else if (this.__options.type === this.__TYPE_MINI) {
-            this.__CLASS_CAROUSEL_CONTAINER = "mini-carousel-container";
-            this.__slideWidth = this.__WIDTH_MINI_CAROUSEL_SLIDE;
-        }
+        this.execByType(
+            this.__options.type,
+            () => {
+                this.__CLASS_CAROUSEL_CONTAINER = "mini-carousel-container";
+                this.__slideWidth = this.__WIDTH_MINI_CAROUSEL_SLIDE;
+            },
+            () => {
+                this.__CLASS_CAROUSEL_CONTAINER = "full-carousel-container";
+                this.__slideWidth = this.__WIDTH_FULL_CAROUSEL_SLIDE;
+            }
+        );
+
         this.__container = $$(containerSelector);
         this.__lastDirection;
         this.__jumpCnt = 1;
@@ -54,6 +60,7 @@ class Carousel {
         this.transitionEndOfSlideList = this.transitionEndOfSlideList.bind(
             this
         );
+        this.playAuto = this.playAuto.bind(this);
 
         this.makeElements(this.__options.type);
         this.makeElementVariables();
@@ -97,25 +104,31 @@ class Carousel {
         };
 
         let resultOfCarousel;
-        if (type === this.__TYPE_FULL) {
-            this.__cursorPosX = caculateStartPosOfCarousel(
-                countSlidesOfFullType(this.__data),
-                this.__WIDTH_FULL_CAROUSEL_SLIDE
-            );
-            resultOfCarousel = templateMaker.makeFull(
-                this.__data,
-                this.__cursorPosX
-            );
-        } else if (type === this.__TYPE_MINI) {
-            this.__cursorPosX = caculateStartPosOfCarousel(
-                this.__data.children.length,
-                this.__WIDTH_MINI_CAROUSEL_SLIDE
-            );
-            resultOfCarousel = templateMaker.makeMini(
-                this.__data,
-                this.__cursorPosX
-            );
-        }
+
+        this.execByType(
+            type,
+            () => {
+                this.__cursorPosX = caculateStartPosOfCarousel(
+                    this.__data.children.length,
+                    this.__WIDTH_MINI_CAROUSEL_SLIDE
+                );
+                resultOfCarousel = templateMaker.makeMini(
+                    this.__data,
+                    this.__cursorPosX
+                );
+            },
+            () => {
+                this.__cursorPosX = caculateStartPosOfCarousel(
+                    countSlidesOfFullType(this.__data),
+                    this.__WIDTH_FULL_CAROUSEL_SLIDE
+                );
+                resultOfCarousel = templateMaker.makeFull(
+                    this.__data,
+                    this.__cursorPosX
+                );
+            }
+        );
+
         setHTML(this.__container, resultOfCarousel);
     }
 
@@ -139,39 +152,63 @@ class Carousel {
         on(this.__slideList, "transitionend", this.transitionEndOfSlideList);
     }
 
+    execByDirection(dir, fnWhenLeft, fnWhenRight) {
+        const directionExec = {};
+        directionExec[this.__DIR_LEFT] = () => {
+            fnWhenLeft();
+        };
+        directionExec[this.__DIR_RIGHT] = () => {
+            fnWhenRight();
+        };
+        directionExec[dir]();
+    }
+
+    execByType(type, fnMini, fnFull) {
+        const typeExec = {};
+        typeExec[this.__TYPE_MINI] = () => {
+            fnMini();
+        };
+        typeExec[this.__TYPE_FULL] = () => {
+            fnFull();
+        };
+        typeExec[type]();
+    }
+
+    transitionEndWhenLeftMove() {
+        let moveSlide;
+        const slides = findChildren(this.__container, `.${this.__CLASS_SLIDE}`);
+        moveSlide = slides[slides.length - 1];
+        const cloneSlide = moveSlide.cloneNode(true);
+        this.__slideList.insertAdjacentElement("afterbegin", cloneSlide);
+        moveSlide.remove();
+    }
+
+    transitionEndWhenRightMove() {
+        const firstSlide = findChild(
+            this.__container,
+            `.${this.__CLASS_SLIDE}`
+        );
+        const cloneSlide = firstSlide.cloneNode(true);
+        this.__slideList.insertAdjacentElement("beforeend", cloneSlide);
+        firstSlide.remove();
+    }
+
     transitionEndOfSlideList(e) {
-        console.log("transition end!");
         requestAnimationFrame(() => {
             setStyle(this.__slideList, "transition", "");
 
-            const directionExec = {};
-
-            directionExec[this.__DIR_LEFT] = () => {
-                let moveSlide;
-                const slides = findChildren(
-                    this.__container,
-                    `.${this.__CLASS_SLIDE}`
-                );
-                moveSlide = slides[slides.length - 1];
-                const cloneSlide = moveSlide.cloneNode(true);
-                this.__slideList.insertAdjacentElement(
-                    "afterbegin",
-                    cloneSlide
-                );
-                moveSlide.remove();
-            };
-            directionExec[this.__DIR_RIGHT] = () => {
-                const firstSlide = findChild(
-                    this.__container,
-                    `.${this.__CLASS_SLIDE}`
-                );
-                const cloneSlide = firstSlide.cloneNode(true);
-                this.__slideList.insertAdjacentElement("beforeend", cloneSlide);
-                firstSlide.remove();
-            };
             for (let i = 0; i < this.__jumpCnt; i++) {
-                directionExec[this.__lastDirection]();
+                this.execByDirection(
+                    this.__lastDirection,
+                    () => {
+                        this.transitionEndWhenLeftMove();
+                    },
+                    () => {
+                        this.transitionEndWhenRightMove();
+                    }
+                );
             }
+
             this.__jumpCnt = 1;
 
             setStyle(
@@ -185,14 +222,16 @@ class Carousel {
     clickArrowHandler(direction) {
         return function(e) {
             this.playAuto();
-            const directionExec = {};
-            directionExec[this.__DIR_LEFT] = () => {
-                this.prevSlide();
-            };
-            directionExec[this.__DIR_RIGHT] = () => {
-                this.nextSlide();
-            };
-            directionExec[direction]();
+
+            this.execByDirection(
+                direction,
+                () => {
+                    this.prevSlide();
+                },
+                () => {
+                    this.nextSlide();
+                }
+            );
         }.bind(this);
     }
 
@@ -256,8 +295,6 @@ class Carousel {
         let isMeetDestIndex = false;
         let isMeetCurIndex = false;
 
-        // console.log("destIndex", destIndex);
-        // console.log("curIndex", curIndex);
         for (let i = 0; i < slides.length; i++) {
             const slideIndex = +slides[i].getAttribute(this.__ATTR_INDEX);
             if (isMeetDestIndex && isMeetCurIndex) {
@@ -281,7 +318,6 @@ class Carousel {
     }
 
     jumpToSlide(moveCnt) {
-        console.log("moveCnt", moveCnt);
         if (moveCnt === 0) {
             return;
         }
