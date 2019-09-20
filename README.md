@@ -12,9 +12,14 @@
   </a>
 </p>
 
+![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
+
 > clone projet (Carousel in amazon prime website)
 
 ### 🏠 [Homepage](https://github.com/doong-jo/membership-amazon#readme)
+
+## Demo
+### [heroku app](https://awesome-carousel.herokuapp.com/) 👀
 
 ## Install
 
@@ -25,7 +30,7 @@ npm install
 ## Usage
 
 ```sh
-npm run prod
+npm run start
 ```
 
 ## Run tests
