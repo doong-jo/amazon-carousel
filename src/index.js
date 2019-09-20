@@ -61,7 +61,6 @@ async function fetchData() {
 
     const miniCarousel = new Carousel("#mini-carousel", miniCarouselData, {
         type: "mini",
-        autoPlay: true,
         slideSpeed: 300,
         autoPlaySpeed: 3000,
         stopWhenPageHidden: true
@@ -71,6 +70,7 @@ async function fetchData() {
         "#amazon-card-carousel",
         amazonCarouselData,
         {
+            slideSpeed: 500,
             type: "full"
         }
     );

@@ -25,6 +25,7 @@ class Carousel {
         this.__CLASS_ARROW = "scroller-arrow";
         this.__CLASS_SLIDE_LIST = "scroller-slide-list";
         this.__CLASS_SLIDE = "scroller-slide";
+        this.__CLASS_CIRCLE_COTAINER = "circle-container";
         this.__ATTR_INDEX = "data-index";
 
         this.__options = {
@@ -55,6 +56,7 @@ class Carousel {
         this.__container = $$(containerSelector);
         this.__lastDirection;
         this.__jumpCnt = 1;
+        this.__isMoving = false;
 
         this.clickArrowHandler = this.clickArrowHandler.bind(this);
         this.transitionEndOfSlideList = this.transitionEndOfSlideList.bind(
@@ -66,6 +68,9 @@ class Carousel {
         this.makeElementVariables();
         this.setPropertyOfOptions(this.__options);
         this.setListeners();
+
+        const slides = findChildren(this.__container, `.${this.__CLASS_SLIDE}`);
+        this.__curIndex = this.getCurrentSlideIndex(slides);
     }
 
     applyOptions(options) {
@@ -195,19 +200,10 @@ class Carousel {
 
     transitionEndOfSlideList(e) {
         requestAnimationFrame(() => {
+            console.log("transition  end!");
             setStyle(this.__slideList, "transition", "");
 
-            for (let i = 0; i < this.__jumpCnt; i++) {
-                this.execByDirection(
-                    this.__lastDirection,
-                    () => {
-                        this.transitionEndWhenLeftMove();
-                    },
-                    () => {
-                        this.transitionEndWhenRightMove();
-                    }
-                );
-            }
+            this.replaceSlides(this.__lastDirection);
 
             this.__jumpCnt = 1;
 
@@ -216,7 +212,22 @@ class Carousel {
                 "transform",
                 `translateX(-${this.__cursorPosX}rem)`
             );
+            this.__isMoving = false;
         });
+    }
+
+    replaceSlides(dir) {
+        for (let i = 0; i < this.__jumpCnt; i++) {
+            this.execByDirection(
+                dir,
+                () => {
+                    this.transitionEndWhenLeftMove();
+                },
+                () => {
+                    this.transitionEndWhenRightMove();
+                }
+            );
+        }
     }
 
     clickArrowHandler(direction) {
@@ -285,8 +296,9 @@ class Carousel {
 
     moveToSlide(destIndex) {
         const slides = findChildren(this.__container, `.${this.__CLASS_SLIDE}`);
-        const curIndex = this.getCurrentSlideIndex(slides);
-        if (destIndex === curIndex) {
+        if (destIndex === this.__curIndex) {
+            this.jumpToSlide(0);
+            console.log("same as dest");
             return;
         }
 
@@ -308,12 +320,13 @@ class Carousel {
             if (destIndex === slideIndex) {
                 isMeetDestIndex = true;
                 moveDir = 1;
-            } else if (curIndex === slideIndex) {
+            } else if (this.__curIndex === slideIndex) {
                 isMeetCurIndex = true;
                 moveDir = -1;
             }
         }
 
+        this.__curIndex = destIndex;
         this.jumpToSlide(moveCnt);
     }
 
@@ -322,20 +335,30 @@ class Carousel {
             return;
         }
 
-        const distance = moveCnt * this.__slideWidth;
-        this.__lastDirection = moveCnt > 0 ? this.__DIR_LEFT : this.__DIR_RIGHT;
-        this.__jumpCnt = Math.abs(moveCnt);
+        requestAnimationFrame(() => {
+            if (this.__isMoving) {
+                this.replaceSlides(this.__lastDirection);
+            }
 
-        setStyle(
-            this.__slideList,
-            "transition",
-            `transform ${this.__options.slideSpeed}ms`
-        );
-        setStyle(
-            this.__slideList,
-            "transform",
-            `translateX(${-this.__cursorPosX + distance}rem)`
-        );
+            const distance = moveCnt * this.__slideWidth;
+            this.__lastDirection =
+                moveCnt > 0 ? this.__DIR_LEFT : this.__DIR_RIGHT;
+            this.__jumpCnt = Math.abs(moveCnt);
+
+            setStyle(
+                this.__slideList,
+                "transition",
+                `transform ${this.__options.slideSpeed}ms`
+            );
+
+            setStyle(
+                this.__slideList,
+                "transform",
+                `translateX(${-this.__cursorPosX + distance}rem)`
+            );
+
+            this.__isMoving = true;
+        });
     }
 }
 
