@@ -217,6 +217,30 @@ class AmazonCard extends Observable {
         return resultIndex;
     }
 
+    focusCircleHandler(pos) {
+        let containerInd;
+        let circleInd;
+        let resultIndex = 0;
+
+        for (let i = 0; i < this.__cardContainers.length; i += 1) {
+            if (
+                resultIndex <= pos &&
+                pos < resultIndex + this.__data[i].items
+            ) {
+                containerInd = i;
+                const diffPos = pos - resultIndex;
+                circleInd = diffPos < 0 ? pos : diffPos;
+                break;
+            }
+
+            resultIndex += this.__data[i].items;
+        }
+
+        this.removeFocusStyle();
+        this.applyFocus(containerInd);
+        this.applyCircleFocus(containerInd, circleInd);
+    }
+
     get items() {
         return this.__data;
     }

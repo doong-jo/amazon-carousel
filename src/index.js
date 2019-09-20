@@ -63,7 +63,8 @@ async function fetchData() {
         type: "mini",
         slideSpeed: 300,
         autoPlaySpeed: 3000,
-        stopWhenPageHidden: true
+        stopPlayWhenPageHidden: true,
+        autoPlay: true
     });
     const amazonCard = new AmazonCard("#amazon-card", amazonCardData);
     const amazonCardCarousel = new Carousel(
@@ -72,7 +73,8 @@ async function fetchData() {
         {
             slideSpeed: 500,
             type: "full"
-        }
+        },
+        amazonCard.focusCircleHandler.bind(amazonCard)
     );
 
     amazonCard.subscribe(

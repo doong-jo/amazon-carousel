@@ -200,9 +200,12 @@ class Carousel {
 
     transitionEndOfSlideList(e) {
         requestAnimationFrame(() => {
-            console.log("transition  end!");
             setStyle(this.__slideList, "transition", "");
 
+            if (this.__focusCircleHandler && this.__jumpCnt == 1) {
+                const movedIndex = this.getCurrentSlideIndex();
+                this.__focusCircleHandler(movedIndex);
+            }
             this.replaceSlides(this.__lastDirection);
 
             this.__jumpCnt = 1;
@@ -298,7 +301,6 @@ class Carousel {
         const slides = findChildren(this.__container, `.${this.__CLASS_SLIDE}`);
         if (destIndex === this.__curIndex) {
             this.jumpToSlide(0);
-            console.log("same as dest");
             return;
         }
 
