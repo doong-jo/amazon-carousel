@@ -7,8 +7,8 @@ const Constants = {
 
     URL: {
         MINI_CAROUSEL: "/carousel/mini-carousel",
-        AMAZNON_CAROUSEL: "/carousel/amazon-carousel",
-        CARD: "/carousel/amazon-card"
+        MAIN_CAROUSEL: "/carousel/main-carousel",
+        CARD: "/carousel/card"
     }
 };
 
