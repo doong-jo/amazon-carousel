@@ -65,4 +65,4 @@ function getCardView(controller) {
     return cardItem;
 }
 
-module.exports = getCardView;
+export default getCardView;

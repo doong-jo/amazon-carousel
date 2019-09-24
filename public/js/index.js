@@ -7,7 +7,7 @@ import { getOriginUrl } from "./util/light-dom.js";
 import _ from "./util/constants.js";
 import { requestServer } from "./util/light-api.js";
 import Card from "./components/card.js";
-// import Carousel from "./components/carousel.js";
+import Carousel from "./components/carousel.js";
 
 async function fetchData(dataUrl) {
     let resultData;
@@ -27,9 +27,9 @@ async function fetchData(dataUrl) {
     return resultData;
 }
 
-(async function makecard() {
-    // const miniCarouselData = await fetchData(_.URL.MINI_CAROUSEL);
-    // const mainCarouselData = await fetchData(_.URL.MAIN_CAROUSEL);
+(async function render() {
+    const miniCarouselData = await fetchData(_.URL.MINI_CAROUSEL);
+    const mainCarouselData = await fetchData(_.URL.MAIN_CAROUSEL);
     const cardData = await fetchData(_.URL.CARD);
 
     const card = new Card()
@@ -41,25 +41,25 @@ async function fetchData(dataUrl) {
         .build(cardData)
         .render();
 
-    // const cardCarousel = new Carousel()
-    //     .init("#full-carousel", {
-    //         slideSpeed: 800,
-    //         type: "full"
-    //     })
-    //     .build(mainCarouselData)
-    //     .render();
+    const cardCarousel = new Carousel()
+        .init("#full-carousel", {
+            slideSpeed: 1000,
+            type: "full"
+        })
+        .build(mainCarouselData)
+        .render();
 
-    // card.setChangeCircleHandler(cardCarousel.moveToSlide);
-    // cardCarousel.setChangePositionHandler(card.followByCircleIndex);
+    card.setChangeCircleHandler(cardCarousel.moveToSlide.bind(cardCarousel));
+    cardCarousel.setChangeSlideHandler(card.followByCircleIndex.bind(card));
 
-    // const miniCarousel = new Carousel()
-    //     .init("#mini-carousel", {
-    //         type: "mini",
-    //         slideSpeed: 300,
-    //         autoPlaySpeed: 3000,
-    //         stopPlayWhenPageHidden: true,
-    //         autoPlay: true
-    //     })
-    //     .build(miniCarouselData)
-    //     .render();
+    const miniCarousel = new Carousel()
+        .init("#mini-carousel", {
+            type: "mini",
+            slideSpeed: 300,
+            autoPlaySpeed: 3000,
+            stopAutoPlayWhenPageHidden: true,
+            autoPlay: true
+        })
+        .build(miniCarouselData)
+        .render();
 })();

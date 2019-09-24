@@ -1,5 +1,5 @@
 import Component from "./component.js";
-import getCardView from "../../views/card.js";
+import getCardView from "../../views/card-view.js";
 import {
     on,
     containClass,
@@ -42,7 +42,7 @@ class Card extends Component {
     }
 
     render() {
-        setHTML(this.elContainer, this.cardView);
+        setHTML(this.elContainer, this.view);
         this.processWhenAfterRender();
 
         return this;
@@ -61,7 +61,7 @@ class Card extends Component {
         }
         this.data =
             data.length > 5 ? data.slice(0, this.options.maxLength) : data;
-        this.cardView = getCardView(this);
+        this.view = getCardView(this);
 
         return this;
     }
@@ -118,6 +118,8 @@ class Card extends Component {
 
         this.applyCardFocus(cardIndex);
         this.applyCircleFocus(circleIndex);
+
+        console.log(circleIndex);
         if (this.circleChangeHandler) {
             this.circleChangeHandler(circleIndex);
         }
