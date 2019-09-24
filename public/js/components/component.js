@@ -16,7 +16,7 @@ class Component {
     }
 
     init(selector, options) {
-        this.options = options;
+        this.applyOptions(options);
         this.elContainer = $$(selector);
 
         return this;

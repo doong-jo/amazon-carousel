@@ -33,6 +33,12 @@ class Card extends Component {
         this.spriteAnimOverHandler = this.spriteAnimOverHandler.bind(this);
         this.spriteAnimOutHandler = this.spriteAnimOutHandler.bind(this);
         this.followByCircleIndex = this.followByCircleIndex.bind(this);
+
+        this.options = {
+            minLength: 2,
+            maxLength: 5,
+            animSpriteIndexArr: [0]
+        };
     }
 
     render() {
