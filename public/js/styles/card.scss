@@ -1,16 +1,16 @@
-.amazon-card-container {
+.card-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 2rem 0;
 
-    .amazon-card-container__item {
+    .item {
         margin: auto 0.2rem;
         flex: 0 0 auto;
         height: fit-content;
         cursor: pointer;
 
-        .amazon-card-container__item__img {
+        .img {
             background-repeat: no-repeat, repeat;
             background-size: 75rem; // half (1200 x 630)
             width: 9.37rem; // 150px
@@ -18,23 +18,23 @@
             margin: 0 auto;
         }
 
-        .amazon-card-container__item__img-scale-up {
+        .img-scale-up {
             position: absolute;
             top: 0rem;
             left: 0;
             right: 0;
         }
 
-        .amazon-card-container__item__title {
+        .img-sprite-play {
+            animation: card-img-play-1 500ms steps(8), card-img-play-2 500ms steps(8), card-img-play-3 500ms steps(8);
+            animation-delay: 0s, 500ms, 1000ms;
+        }
+
+        .title {
             text-align: center;
             color: #FFF;
             font-size: 1.2rem;
             padding-bottom: 1rem;
-        }
-
-        .amazon-card-container__item__img-sprite-play {
-            animation: card-img-play-1 500ms steps(8), card-img-play-2 500ms steps(8), card-img-play-3 500ms steps(8);
-            animation-delay: 0s, 500ms, 1000ms;
         }
 
         @-webkit-keyframes card-img-play-1 {
@@ -106,22 +106,22 @@
         }
     }
 
-    .amazon-card-container__item-scale-up {
+    .item-scale-up {
         height: 14rem;
         width: 12rem;
         margin: 0 -1rem;
         z-index: 2;
         position: relative;
 
-        .amazon-card-container__item__title {
+        .title {
             margin-top: 1.1rem;
             position: absolute;
-            top: 9rem;
+            top: 9.4rem;
             left: 0;
             right: 0;
         }
 
-        .amazon-card-container__item__circle-container {
+        .circle-container {
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -131,7 +131,7 @@
             top: 12.5rem;
         }
 
-        .amazon-card-container__item__circle-container__circle {
+        .circle-container__circle {
             background-image: url('/img/circle-solid.svg');
             background-repeat: no-repeat;
             width: 0.6rem;
@@ -145,7 +145,7 @@
         }
     }
 
-    .amazon-card-container__item-scale-up::before {
+    .item-scale-up::before {
         content: "";
         position: relative;
         display: inline-block;
@@ -158,12 +158,12 @@
         pointer-events: none;
     }
 
-    .amazon-card-container__item-scale-up::after {
+    .item-scale-up::after {
         content: "";
         position: relative;
         display: inline-block;
         top: 1.1rem;
-        left: 10rem;
+        left: 9.7rem;
         width: 2rem;
         height: 11.8rem;
         background: linear-gradient(90deg, #000000 -50%, #00000000);
@@ -171,35 +171,35 @@
         pointer-events: none;
     }
 
-    .amazon-card-container__item-scale-up:first-child:before {
+    .item-scale-up:first-child:before {
         background: none;
     }
 
-    .amazon-card-container__item-scale-up:last-child:after {
+    .item-scale-up:last-child:after {
         background: none;
     }
 
-    .amazon-card-container__item:nth-child(1) {
+    .item:nth-child(1) {
         background: linear-gradient(30deg, #2C88AE 40%, #00A8E1 90%, #00A8E1 48px);
     }
 
-    .amazon-card-container__item:nth-child(2) {
+    .item:nth-child(2) {
         background: linear-gradient(30deg, #CC0C39 40%, #FF6138 90%, #FF6138 48px);
     }
 
-    .amazon-card-container__item:nth-child(3) {
+    .item:nth-child(3) {
         background: linear-gradient(30deg, #A90067 40%, #E31F64 90%, #E31F64 48px);
     }
 
-    .amazon-card-container__item:nth-child(4) {
+    .item:nth-child(4) {
         background: linear-gradient(30deg, #008577 40%, #36C2B4 90%, #36C2B4 48px);
     }
 
-    .amazon-card-container__item:nth-child(5) {
+    .item:nth-child(5) {
         background: linear-gradient(30deg, #FF6138 40%, #FFC400 90%, #FFC400 48px);
     }
 
-    .amazon-card-container__item__circle-container {
+    .circle-container {
         display: none;
     }
 }

@@ -3,4 +3,4 @@ export function caculateStartPosOfCarousel(total, eachWidth = 1) {
     return (Math.floor(total / 2) - +!(total & 1)) * eachWidth;
 }
 
-export default { caculateStartPosOfCarousel };
+export default caculateStartPosOfCarousel;
