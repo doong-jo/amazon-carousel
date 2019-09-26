@@ -1,65 +1,27 @@
-import "./styles/normarlize.css";
-import "./styles/index.scss";
-import "./styles/card.scss";
-import "./styles/carousel.scss";
+import { Router } from "./router.js";
+import { $$ } from "./utils/light-dom";
+import Main from "./pages/main.js";
+import Login from "./pages/login.js";
+import Signup from "./pages/signup.js";
 
-import { getOriginUrl } from "./util/light-dom.js";
-import _ from "./util/constants.js";
-import { requestServer } from "./util/light-api.js";
-import Card from "./components/card.js";
-import Carousel from "./components/carousel.js";
+import "../styles/normarlize.css";
+import "../styles/general.scss";
+import "../styles/carousel.scss";
+import "../styles/card.scss";
+import "../styles/login.scss";
+import "../styles/signup.scss";
+import "../styles/form.scss";
+import "../styles/tag.scss";
+import "../styles/modal.scss";
 
-async function fetchData(dataUrl) {
-    let resultData;
+const mainPage = new Main();
 
-    try {
-        resultData = await requestServer(
-            _.METHOD_GET,
-            {},
-            `${getOriginUrl()}${dataUrl}`,
-            _.HEADER_TYPE_JSON
-        );
-    } catch (e) {
-        console.error(e.message);
-        return;
-    }
-
-    return resultData;
-}
-
-(async function render() {
-    const miniCarouselData = await fetchData(_.URL.MINI_CAROUSEL);
-    const mainCarouselData = await fetchData(_.URL.MAIN_CAROUSEL);
-    const cardData = await fetchData(_.URL.CARD);
-
-    const card = new Card()
-        .init("#card", {
-            minLength: 2,
-            maxLength: 5,
-            animSpriteIndexArr: [0]
-        })
-        .build(cardData)
-        .render();
-
-    const cardCarousel = new Carousel()
-        .init("#full-carousel", {
-            slideSpeed: 1000,
-            type: "full"
-        })
-        .build(mainCarouselData)
-        .render();
-
-    card.setChangeCircleHandler(cardCarousel.moveToSlide.bind(cardCarousel));
-    cardCarousel.setChangeSlideHandler(card.followByCircleIndex.bind(card));
-
-    const miniCarousel = new Carousel()
-        .init("#mini-carousel", {
-            type: "mini",
-            slideSpeed: 300,
-            autoPlaySpeed: 3000,
-            stopAutoPlayWhenPageHidden: true,
-            autoPlay: true
-        })
-        .build(miniCarouselData)
-        .render();
-})();
+const router = new Router(
+    {
+        default: mainPage,
+        main: mainPage,
+        login: new Login(),
+        signup: new Signup()
+    },
+    $$("#main")
+);
