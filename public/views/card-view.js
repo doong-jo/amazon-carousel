@@ -1,7 +1,7 @@
 function getCardView(controller) {
     const makeImg = function(dataImg) {
         const img = /* html */ `
-        <div class="${controller.CLASS_AMAZON_IMG}" 
+        <div class="${controller.CLASS_IMG}" 
             style="background-image: url(${dataImg})"></div>`;
 
         return img;
@@ -9,7 +9,7 @@ function getCardView(controller) {
 
     const makeName = function(dataName) {
         const name = /* html */ `
-        <div class="${controller.CLASS_AMAZON_TITLE}">
+        <div class="${controller.CLASS_TITLE}">
             ${dataName}
         </div>`;
 
@@ -24,12 +24,12 @@ function getCardView(controller) {
             const circle = /* html */ `
             <div
                 circle-index="${circleIndexAcc + i}" 
-                class="${controller.CLASS_AMAZON_CIRCLE}"></div>`;
+                class="${controller.CLASS_CIRCLE}"></div>`;
             circles += /* html */ `${circle}`;
         }
 
         let circleContainer = /* html */ `
-        <div class="${controller.CLASS_AMAZON_CIRCLE_CONTAINER}">
+        <div class="${controller.CLASS_CIRCLE_CONTAINER}">
             ${circles}
         </div>`;
 
@@ -43,7 +43,7 @@ function getCardView(controller) {
         for (const eachData of this.data) {
             cardElements += /* html */ `
             <div 
-                class="${controller.CLASS_AMAZON_CARD}"
+                class="${controller.CLASS_CARD}"
                 card-index="${cardIndex}" >
                 ${makeImg(eachData.image)}
                 ${makeName(eachData.name)}
@@ -58,7 +58,7 @@ function getCardView(controller) {
     }.bind(controller);
 
     const cardItem = /* html */ `
-    <div class="${controller.CLASS_AMAZON_CONTAINER}">
+    <div class="${controller.CLASS_CONTAINER}">
         ${makeCards()}
     </div>`;
 

@@ -1,10 +1,9 @@
-import _ from "../js/util/constants.js";
-import caculateStartPosOfCarousel from "../js/util/calculator.js";
+import Carousel from "../js/components/carousel.js";
 
 const makeSortSlideImages = slideImgs => {
     let indexArr = [];
     const sortSlideImgs = [];
-    const startPos = caculateStartPosOfCarousel(slideImgs.length);
+    const startPos = Carousel.caculateStartPosOfCarousel(slideImgs.length);
 
     for (let i = startPos + 1; i < slideImgs.length; i++) {
         sortSlideImgs.push(slideImgs[i]);
