@@ -11,6 +11,7 @@ const Constants = {
 
     URL: {
         LOGIN: "/auth/login",
+        AUTH: "/auth/passport",
         LOGOUT: "/auth/logout",
         SIGNUP: "/user/signup",
         EXIST: "/user/exists",

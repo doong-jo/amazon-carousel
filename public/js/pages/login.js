@@ -15,12 +15,12 @@ const MESSAGES = {
 async function doLogin(id, pwd) {
     const loginResponse = await requestServer(
         _.METHOD.POST,
-        { id, pwd },
+        { id, password: pwd },
         _.URL.LOGIN
     );
 
     if (loginResponse) {
-        goToPage(_.PAGE_HASH.TODO);
+        goToPage(_.PAGE_HASH.MAIN);
         return;
     }
 
