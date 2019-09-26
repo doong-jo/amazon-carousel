@@ -61,6 +61,19 @@ module.exports = {
         res.json(result);
     },
 
+    isAdmin(req, res, next) {
+        const { user } = req;
+        const isLogin = typeof user !== "undefined";
+        if (isLogin) {
+            const { is_admin } = user;
+            const isAdmin = is_admin === 1;
+            next();
+            return;
+        }
+
+        res.redirect("/404");
+    },
+
     clearAuth(req, res) {
         req.logout();
         res.send(true);
