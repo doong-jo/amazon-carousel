@@ -1,3 +1,7 @@
+import { requestServer } from "./utils/light-api.js";
+import { goToPage } from "./utils/light-dom.js";
+import _ from "../js/services/constants.js";
+
 export class Router {
     constructor(routes, rootElement) {
         this.routes = routes;
@@ -15,7 +19,14 @@ export class Router {
     }
 
     async navigate(routeName) {
+        const loginState = await requestServer(_.METHOD.POST, {}, _.URL.AUTH);
+        if (!loginState && routeName !== "login" && routeName !== "signup") {
+            routeName = "login";
+            goToPage(_.PAGE_HASH.LOGIN);
+            return;
+        }
+
         this.rootElement.innerHTML = this.routes[routeName].getView();
-        await this.routes[routeName].render();
+        await this.routes[routeName].build();
     }
 }
