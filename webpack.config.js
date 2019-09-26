@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: ["babel-polyfill", "./src/index.js"],
+    entry: ["babel-polyfill", "./public/js/index.js"],
     output: {
         path: __dirname + "/public",
         filename: "app.bundle.js"
@@ -28,7 +28,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "amazon-carousel",
-            template: "./src/views/index.html",
+            template: "./public/views/index.html",
             filename: "./index.html",
             favicon: "./public/favicon.ico"
         })
