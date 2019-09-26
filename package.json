@@ -45,6 +45,14 @@
         "webpack-cli": "^3.3.8"
     },
     "dependencies": {
-        "express": "^4.17.1"
+        "bcrypt": "^3.0.6",
+        "connect-redis": "^4.0.2",
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "express-session": "^1.16.2",
+        "mysql-ssh": "^1.0.6",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
+        "redis": "^2.8.0"
     }
 }
