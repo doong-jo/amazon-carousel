@@ -22,9 +22,6 @@ const PORT = 80;
 const STATIC_PATH = express.static(path.join(__dirname, "public"));
 const HTML_FILE = path.join(__dirname, "public/index.html");
 
-app.use(passport.initialize());
-// app.use(passport.session());
-
 app.use(
     session({
         store: new RedisStore({ client }),
@@ -36,6 +33,9 @@ app.use(
     })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(
@@ -43,6 +43,7 @@ app.use(
         extended: false
     })
 );
+
 app.use(STATIC_PATH);
 app.get("/", (req, res) => {
     res.sendFile(HTML_FILE);
