@@ -25,6 +25,9 @@ class Signup extends Page {
     }
 
     async render() {
+        this.makeListeners();
+        this.makeValidator();
+
         this.signupPage = $$(".signup");
         this.signupForm = this.buildSignupForm();
         this.termModal = this.buildTermModal();
@@ -32,8 +35,6 @@ class Signup extends Page {
         this.signupDenyModal = this.buildSignupDenyModal();
 
         this.makeElementVariables();
-        this.makeListeners();
-        this.makeValidator();
 
         this.registerEvents();
     }
@@ -138,20 +139,22 @@ class Signup extends Page {
     }
 
     async doSignup(id, pwd) {
-        async function successFn() {
-            await requestServer(
+        const response = await this.signupForm.submit(_.URL.SIGNUP);
+        if (response) {
+            const response = await requestServer(
                 _.METHOD.POST,
                 { id, pwd },
-                _.REQUEST_URL.LOGIN
+                _.URL.LOGIN
             );
+
+            if (!response) {
+                alert("가입에 실패했습니다.");
+                return;
+            }
             goToPage(_.PAGE_HASH.TODO);
+            return;
         }
-
-        function failFn() {
-            alert("가입에 실패했습니다.");
-        }
-
-        await this.signupForm.submit(_.REQUEST_URL.SIGNUP, successFn, failFn);
+        alert("가입에 실패했습니다.");
     }
 
     makeValidator() {

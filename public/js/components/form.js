@@ -359,7 +359,7 @@ class Form {
      * @param {function} failFn 실패 시 수행하는 함수
      * @memberof Form
      */
-    async submit(serverUrl = "", successFn, failFn) {
+    async submit(serverUrl = "") {
         if (serverUrl === "") {
             return;
         }
@@ -367,9 +367,7 @@ class Form {
         await requestServer(
             "POST",
             getRefactedFormData(this.formData),
-            serverUrl,
-            successFn,
-            failFn
+            serverUrl
         );
     }
 

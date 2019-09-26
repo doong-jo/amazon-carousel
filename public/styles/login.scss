@@ -44,25 +44,30 @@
     overflow: hidden;
 }
 
+
+
 .login header video {
     position: absolute;
+    overflow: hidden;
     top: 50%;
     left: 50%;
     min-width: 100%;
     min-height: 100%;
-    width: fit-content;
-    height: fit-content;
+    width: 0;
     z-index: 0;
     -ms-transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
+    transition: width 1s, height 1s;
+    -webkit-transition: width 1s, height 1s;
 }
 
 .adjust-size {
-    width: fit-content !important;
-    height: fit-content !important;
+    width: 2048px !important;
+    height: auto !important;
 }
+
 
 .login header .container {
     position: relative;

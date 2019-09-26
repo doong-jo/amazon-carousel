@@ -61,11 +61,11 @@ const FormValidator = {
         const cases = [
             () => /(^[a-z0-9_-]{5,20})$/.test(value),
             async () => {
-                return await requestServer(
+                return !(await requestServer(
                     _.METHOD.GET,
                     { id: value },
                     `${getOriginUrl()}${_.URL.EXIST}`
-                );
+                ));
             }
         ];
 

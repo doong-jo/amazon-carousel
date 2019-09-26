@@ -58,7 +58,10 @@ class Login extends Page {
         const bgVideo = findChild(this.mainView, ".bg-video");
 
         bgVideo.addEventListener("play", () => {
-            addClass(bgVideo, "adjust-size");
+            setTimeout(() => {
+                addClass(bgVideo, "adjust-size");
+                // bgVideo.offsetWidth;
+            }, 1000);
         });
 
         loginBtn.addEventListener(

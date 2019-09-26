@@ -14,14 +14,13 @@ const Constants = {
         LOGOUT: "/auth/logout",
         SIGNUP: "/user/signup",
         EXIST: "/user/exists",
-        PASSPORT: "/auth/passport",
         MINI_CAROUSEL: "/carousel/mini-carousel",
         MAIN_CAROUSEL: "/carousel/main-carousel",
         CARD: "/carousel/card"
     },
 
     PAGE_HASH: {
-        LOGIN: "/",
+        LOGIN: "./#login",
         SIGNUP: "./#signup",
         MAIN: "./#main"
     }

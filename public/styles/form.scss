@@ -24,7 +24,7 @@
 
 .form-container input[type=checkbox] {
     width: auto;
-    vertical-align: text-top;
+    vertical-align: -webkit-baseline-middle;
 }
 
 .form-container select {
