@@ -1,5 +1,5 @@
 const express = require("express");
-const carouselService = require("../services/carousel-service");
+const carouselService = require("../services/middleware/carousel-service");
 
 const router = express.Router();
 
