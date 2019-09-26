@@ -4,10 +4,9 @@ import {
     on,
     setStyle,
     setHTML
-} from "../util/light-dom.js";
-import { watchPageVisibility } from "../util/light-api.js";
-import _ from "../util/constants.js";
-import caculateStartPosOfCarousel from "../util/calculator.js";
+} from "../utils/light-dom.js";
+import { watchPageVisibility } from "../utils/light-api.js";
+import _ from "../services/constants.js";
 import Component from "../components/component.js";
 import CarouselView from "../../views/carousel-view.js";
 
@@ -76,7 +75,7 @@ class Carousel extends Component {
 
         this.execByType(
             () => {
-                this.cursorPosX = caculateStartPosOfCarousel(
+                this.cursorPosX = Carousel.caculateStartPosOfCarousel(
                     this.data.children.length,
                     this.WIDTH_MINI_CAROUSEL_SLIDE
                 );
@@ -93,7 +92,7 @@ class Carousel extends Component {
                 };
 
                 this.totalSlideCnt = countSlidesOfFullType(this.data);
-                this.cursorPosX = caculateStartPosOfCarousel(
+                this.cursorPosX = Carousel.caculateStartPosOfCarousel(
                     this.totalSlideCnt,
                     this.WIDTH_FULL_CAROUSEL_SLIDE
                 );
@@ -256,7 +255,7 @@ class Carousel extends Component {
 
     getCurrentSlideIndex() {
         const slides = findChildren(this.elContainer, `.${this.CLASS_SLIDE}`);
-        const curPos = caculateStartPosOfCarousel(slides.length);
+        const curPos = Carousel.caculateStartPosOfCarousel(slides.length);
         const curIndex = slides[curPos].getAttribute(this.ATTR_INDEX);
         return +curIndex;
     }
@@ -311,7 +310,7 @@ class Carousel extends Component {
             -this.cursorPosX + distance
         );
     }
-    caculateStartPosOfCarousel(total, eachWidth = 1) {
+    static caculateStartPosOfCarousel(total, eachWidth = 1) {
         // (전체 개수 / 2) - (짝수 ? -1 : 0) * 개당 너비
         return (Math.floor(total / 2) - +!(total & 1)) * eachWidth;
     }
