@@ -85,3 +85,12 @@ export function getOriginUrl() {
 export function getIndexOfNodeList(nodelist, targetElement) {
     return [...nodelist].indexOf(targetElement);
 }
+
+/**
+ * url을 수정해 페이지를 이동시킨다.
+ *
+ * @param {string} hash
+ */
+export function goToPage(hash) {
+    document.location.href = hash;
+}
