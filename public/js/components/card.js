@@ -8,23 +8,23 @@ import {
     addClass,
     removeClass,
     getAttribute
-} from "../util/light-dom.js";
-import _ from "../util/constants.js";
+} from "../utils/light-dom.js";
+import _ from "../services/constants.js";
 
 class Card extends Component {
     constructor() {
         super();
 
-        this.CLASS_AMAZON_CONTAINER = "card-container";
-        this.CLASS_AMAZON_CARD = "item";
-        this.CLASS_AMAZON_IMG = "img";
-        this.CLASS_AMAZON_IMG_SPRITE_PLAY = `${this.CLASS_AMAZON_IMG}-sprite-play`;
-        this.CLASS_AMAZON_TITLE = "title";
-        this.CLASS_AMAZON_CIRCLE_CONTAINER = "circle-container";
-        this.CLASS_AMAZON_CIRCLE = `${this.CLASS_AMAZON_CIRCLE_CONTAINER}__circle`;
-        this.CLASS_AMAZON_CIRCLE_SELECTED = "circle-selected";
-        this.CLASS_CARD_SCALE_UP = `${this.CLASS_AMAZON_CARD}-scale-up`;
-        this.CLASS_IMG_SCALE_UP = `${this.CLASS_AMAZON_IMG}-scale-up`;
+        this.CLASS_CONTAINER = "card-container";
+        this.CLASS_CARD = "item";
+        this.CLASS_IMG = "img";
+        this.CLASS_IMG_SPRITE_PLAY = `${this.CLASS_IMG}-sprite-play`;
+        this.CLASS_TITLE = "title";
+        this.CLASS_CIRCLE_CONTAINER = "circle-container";
+        this.CLASS_CIRCLE = `${this.CLASS_CIRCLE_CONTAINER}__circle`;
+        this.CLASS_CIRCLE_SELECTED = "circle-selected";
+        this.CLASS_CARD_SCALE_UP = `${this.CLASS_CARD}-scale-up`;
+        this.CLASS_IMG_SCALE_UP = `${this.CLASS_IMG}-scale-up`;
         this.ATTR_CARD_INDEX = "card-index";
         this.ATTR_CIRCLE_INDEX = "circle-index";
 
@@ -85,15 +85,13 @@ class Card extends Component {
     makeElementVariables() {
         this.cardContainers = findChildren(
             this.elContainer,
-            `.${this.CLASS_AMAZON_CARD}`
+            `.${this.CLASS_CARD}`
         );
-        this.cardImgs = findChildren(
-            this.elContainer,
-            `.${this.CLASS_AMAZON_IMG}`
-        );
+
+        this.cardImgs = findChildren(this.elContainer, `.${this.CLASS_IMG}`);
         this.circleContainers = findChildren(
             this.elContainer,
-            `.${this.CLASS_AMAZON_CIRCLE_CONTAINER}`
+            `.${this.CLASS_CIRCLE_CONTAINER}`
         );
 
         this.circles = [];
@@ -104,7 +102,7 @@ class Card extends Component {
 
     cardClickHandler(e) {
         const targetCard = e.target.parentElement;
-        if (!containClass(targetCard, this.CLASS_AMAZON_CARD)) {
+        if (!containClass(targetCard, this.CLASS_CARD)) {
             return;
         }
         const cardIndex = getAttribute(targetCard, this.ATTR_CARD_INDEX);
@@ -127,12 +125,7 @@ class Card extends Component {
 
     circleClickHandler(e) {
         const targetCircleContainer = e.target.parentElement;
-        if (
-            !containClass(
-                targetCircleContainer,
-                this.CLASS_AMAZON_CIRCLE_CONTAINER
-            )
-        ) {
+        if (!containClass(targetCircleContainer, this.CLASS_CIRCLE_CONTAINER)) {
             return;
         }
         const { target } = e;
@@ -148,9 +141,9 @@ class Card extends Component {
     isNotImgInCard(target, targetCard) {
         // is not focus card and didn't start play animation
         return (
-            !containClass(targetCard, this.CLASS_AMAZON_CARD) ||
-            containClass(target, this.CLASS_AMAZON_IMG_SPRITE_PLAY) ||
-            !containClass(target, this.CLASS_AMAZON_IMG) ||
+            !containClass(targetCard, this.CLASS_CARD) ||
+            containClass(target, this.CLASS_IMG_SPRITE_PLAY) ||
+            !containClass(target, this.CLASS_IMG) ||
             this.focusCard === targetCard
         );
     }
@@ -158,8 +151,8 @@ class Card extends Component {
     isNotSpriteAnimation(target, targetCard) {
         // is card and is not img
         return (
-            containClass(targetCard, this.CLASS_AMAZON_CARD) ||
-            !containClass(target, this.CLASS_AMAZON_IMG)
+            containClass(targetCard, this.CLASS_CARD) ||
+            !containClass(target, this.CLASS_IMG)
         );
     }
 
@@ -171,7 +164,7 @@ class Card extends Component {
         }
 
         this.curSprite = target;
-        addClass(this.curSprite, this.CLASS_AMAZON_IMG_SPRITE_PLAY);
+        addClass(this.curSprite, this.CLASS_IMG_SPRITE_PLAY);
     }
 
     spriteAnimOutHandler(e) {
@@ -182,17 +175,17 @@ class Card extends Component {
         }
 
         if (this.curSprite) {
-            removeClass(this.curSprite, this.CLASS_AMAZON_IMG_SPRITE_PLAY);
+            removeClass(this.curSprite, this.CLASS_IMG_SPRITE_PLAY);
         }
     }
 
     applyCircleFocus(circleIndex) {
         if (this.selectedCircle) {
-            removeClass(this.selectedCircle, this.CLASS_AMAZON_CIRCLE_SELECTED);
+            removeClass(this.selectedCircle, this.CLASS_CIRCLE_SELECTED);
         }
         this.selectedCircle = this.circles[circleIndex];
 
-        addClass(this.selectedCircle, this.CLASS_AMAZON_CIRCLE_SELECTED);
+        addClass(this.selectedCircle, this.CLASS_CIRCLE_SELECTED);
     }
 
     applyCardFocus(index) {
