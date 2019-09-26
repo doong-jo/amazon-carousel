@@ -1,3 +1,4 @@
+import Component from "./component.js";
 import NodeBuilder from "../utils/node-builder.js";
 import { findChild } from "../utils/light-dom.js";
 
@@ -6,13 +7,14 @@ import { findChild } from "../utils/light-dom.js";
  *
  * @class Modal
  */
-class Modal {
+class Modal extends Component {
     /**
      * Modal 생성자로써 element id를 인자로 받아 element를 생성한다.
      * @param {string} id 부여할 element id
      * @memberof Modal
      */
     constructor(parent, id) {
+        super();
         this.elementId = id;
 
         this.modalContainer = document.createElement("div");

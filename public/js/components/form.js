@@ -1,3 +1,4 @@
+import Component from "./component.js";
 import NodeBuilder from "../utils/node-builder.js";
 import { requestServer } from "../utils/light-api.js";
 import { debounce } from "../utils/util.js";
@@ -82,8 +83,9 @@ function getRefactedFormData(body) {
  *
  * @class Form
  */
-class Form {
+class Form extends Component {
     constructor(id) {
+        super();
         this.formElement = document.getElementById(id);
         this.tagList = {};
         this.hasValidatorItems = [];

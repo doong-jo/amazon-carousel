@@ -1,3 +1,4 @@
+import Component from "./component.js";
 import NodeBuilder from "../utils/node-builder.js";
 
 /**
@@ -5,7 +6,7 @@ import NodeBuilder from "../utils/node-builder.js";
  *
  * @class TagList
  */
-class TagList {
+class TagList extends Component {
     /**
      * 태그 리스트 생성자
      * @param {string} id 태그 리스트 element id
@@ -13,6 +14,7 @@ class TagList {
      * @memberof TagList
      */
     constructor(id, min) {
+        super();
         this.CLOSE_SVG_PATH = "/img/close.svg";
 
         this.tagElement = document.createElement("div");
