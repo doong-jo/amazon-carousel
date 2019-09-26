@@ -24,7 +24,7 @@ class Signup extends Page {
         this.view = signupView;
     }
 
-    async render() {
+    async build() {
         this.makeListeners();
         this.makeValidator();
 

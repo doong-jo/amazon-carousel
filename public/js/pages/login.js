@@ -33,7 +33,7 @@ class Login extends Page {
         this.view = loginView;
     }
 
-    async render() {
+    async build() {
         this.mainView = $$(".login");
         this.idInput = $$("#f_id");
         this.pwInput = $$("#f_pw");
