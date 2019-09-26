@@ -1,4 +1,4 @@
-import { $$, setHTML } from "../util/light-dom";
+import { $$, setHTML } from "../utils/light-dom";
 
 class Component {
     constructor() {
