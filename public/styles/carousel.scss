@@ -127,10 +127,11 @@
         display: flex;
         justify-content: center;
         position: relative;
-        height: 23rem;
+        height: 24rem;
         flex-direction: row;
         padding: 1rem;
         flex: 1 70rem;
+        overflow-x: hidden;
 
         .view {
             display: flex;
