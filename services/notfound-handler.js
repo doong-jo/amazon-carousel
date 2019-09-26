@@ -1,6 +1,6 @@
-const createError = require("http-errors");
+const path = require("path");
 
-module.exports = (req, res, next) => {
+module.exports = (req, res) => {
     console.error("wrong path:", req.path);
-    next(createError(404));
+    res.sendFile(path.join(__dirname, "notfound.html"));
 };
