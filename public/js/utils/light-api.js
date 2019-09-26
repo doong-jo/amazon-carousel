@@ -1,3 +1,6 @@
+import _ from "../services/constants";
+import { getOriginUrl } from "./light-dom.js";
+
 /**
  * data를 서버에 요청하고 응답받는다.
  *
@@ -17,9 +20,9 @@ export async function requestServer(
     fetchOptions.method = method;
     fetchOptions.headers = headers;
 
-    if (fetchOptions.method === "POST") {
+    if (fetchOptions.method === _.METHOD.POST) {
         fetchOptions.body = JSON.stringify(data);
-    } else if (fetchOptions.method === "GET") {
+    } else if (fetchOptions.method === _.METHOD.GET) {
         const getMethodUrl = new URL(url);
         getMethodUrl.search = new URLSearchParams(data);
 
@@ -35,6 +38,24 @@ export async function requestServer(
     } else {
         throw new Error("fail requestServer : (status isn't success code)");
     }
+}
+
+export async function fetchData(dataUrl) {
+    let resultData;
+
+    try {
+        resultData = await requestServer(
+            _.METHOD.GET,
+            {},
+            `${getOriginUrl()}${dataUrl}`,
+            _.HEADER_TYPE_JSON
+        );
+    } catch (e) {
+        console.error(e.message);
+        return;
+    }
+
+    return resultData;
 }
 
 export function watchPageVisibility(visibleFunc, inVisibleFunc) {
