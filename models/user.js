@@ -7,7 +7,7 @@ module.exports = {
         const [rows] = await conn.query(`SELECT * FROM user WHERE id = ?`, [
             id
         ]);
-        return rows.length;
+        return rows;
     },
 
     async findAll(conn, query) {

@@ -30,7 +30,7 @@ async function checkExists(req, res, next) {
         POST: req.body
     };
     const { id } = getId[req.method];
-    const exists = Boolean(await userAPI.findUserById({ id }));
+    const exists = Boolean((await userAPI.findUserById({ id })).length);
 
     if (typeof exists === "undefined") {
         res.sendStatus(403);

@@ -12,7 +12,7 @@ const buildPageTemplate = {
 };
 
 async function readRawDataByPageName(name) {
-    const ssrPath = path.join(__dirname, "../ssr-admin");
+    const ssrPath = path.join(__dirname, "../../ssr-admin");
     const scriptFilePath = path.join(ssrPath, `js/${name}.js`);
     const styleFilePath = path.join(ssrPath, `css/${name}.css`);
 
