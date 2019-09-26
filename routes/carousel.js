@@ -3,8 +3,8 @@ const carouselService = require("../services/carousel-service");
 
 const router = express.Router();
 
-router.get("/amazon-card", carouselService.getAmazonCardData);
-router.get("/amazon-carousel", carouselService.getAmazonCarouselData);
+router.get("/card", carouselService.getCardData);
+router.get("/main-carousel", carouselService.getFullCarouselData);
 router.get("/mini-carousel", carouselService.getMiniCarouselData);
 
 module.exports = router;
