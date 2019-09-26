@@ -1,6 +1,6 @@
-const amazonCardData = require("../public/json/amazon-card-data.json");
-const amazonCarouselData = require("../public/json/amazon-carousel-data.json");
-const miniCarouselData = require("../public/json/carousel-data.json");
+const amazonCardData = require("../../public/json/amazon-card-data.json");
+const amazonCarouselData = require("../../public/json/amazon-carousel-data.json");
+const miniCarouselData = require("../../public/json/carousel-data.json");
 
 function getCardData(req, res) {
     res.json(amazonCardData);

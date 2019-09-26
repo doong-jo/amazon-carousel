@@ -3,8 +3,8 @@ const util = require("util");
 const path = require("path");
 const readFile = util.promisify(fs.readFile);
 
-const { getItemTemplate } = require("../ssr-admin/item-template");
-const { getUserTemplate } = require("../ssr-admin/user-template");
+const { getItemTemplate } = require("../../ssr-admin/item-template");
+const { getUserTemplate } = require("../../ssr-admin/user-template");
 
 const buildPageTemplate = {
     user: getUserTemplate,
