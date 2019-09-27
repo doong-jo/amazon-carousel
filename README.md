@@ -12,9 +12,6 @@
   </a>
 </p>
 
-![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
-
-> clone projet (Carousel in amazon prime website)
 
 ### 🏠 [Homepage](https://github.com/doong-jo/membership-amazon#readme)
 
@@ -24,7 +21,8 @@
 ## Install
 
 ```sh
-npm install
+npm install && npm run prod
+vim env (write your environment)
 ```
 
 ## Usage
