@@ -1,7 +1,15 @@
+async function fetchItemData() {
+    const items = await fetch("/item", {
+        method: "GET",
+        query: {}
+    });
+
+    items;
+}
+
 $(document).ready(async function() {
-    // async function fetchItemData() {}
     // const itemData = await fetchItemData();
-    const itemPage = new ItemPage().init(/* itemData */);
+    const itemPage = new ItemPage().init(/*itemData*/);
 });
 
 class ItemPage {
@@ -32,6 +40,7 @@ class ItemPage {
 
     init(data) {
         this.data = data;
+        console.log(this.data);
 
         this.makeElementVariables();
         this.setListeners();
@@ -44,6 +53,7 @@ class ItemPage {
         this.$elMiniUploadInputs = $(".mini-upload");
         this.$cardSubmitBtn = $(".card-submit");
         this.$cardItemSubmitBtn = $(".card-item-submit");
+        this.$applyBtn = $(".apply");
     }
 
     setListeners() {
