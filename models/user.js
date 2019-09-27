@@ -23,12 +23,14 @@ module.exports = {
         for (const value of Object.values(query)) {
             args.push(value);
         }
+        // is_admin
+        args.push(0);
 
-        const result = await conn.query(
-            "INSERT INTO user (`id`, `password`, `name`, `birth`, `gender`, `email`, `phone`, `favorite`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        await conn.query(
+            "INSERT INTO user (`id`, `password`, `name`, `birth`, `gender`, `email`, `phone`, `favorite`, `is_admin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             args
         );
-        return result[0].serverStatus === 3;
+        return true;
     }
 
     // /**
