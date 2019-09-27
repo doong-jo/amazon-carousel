@@ -41,6 +41,8 @@ server
 ├─ models    // ...user
 ├─ routes    // ...router
 ├─ services  // ...services (auth, admin ...)
+│   ├─ handler
+│   └─ middleware
 └─ ssr-admin // html, css, js
 
 public
