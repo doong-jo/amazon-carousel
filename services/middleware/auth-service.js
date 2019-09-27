@@ -5,13 +5,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const userAPI = require("../../api/user");
 
 passport.serializeUser(function(user, done) {
-    console.log("serializeUser", user.id);
     done(null, user.id);
 });
 
 passport.deserializeUser(async function(id, done) {
     const user = await userAPI.findUserById({ id });
-    console.log("deserializeUser", user[0].id);
     done(null, user[0]);
 });
 
@@ -56,7 +54,6 @@ passport.use(
 
 module.exports = {
     isLogined(req, res, next) {
-        console.log(req.user);
         const result = typeof req.user !== "undefined";
         res.json(result);
     },
@@ -67,8 +64,11 @@ module.exports = {
         if (isLogin) {
             const { is_admin } = user;
             const isAdmin = is_admin === 1;
-            next();
-            return;
+            if (isAdmin) {
+                next();
+                return;
+            }
+            res.redirect("/404");
         }
 
         res.redirect("/404");
