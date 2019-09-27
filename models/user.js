@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const _ = require("../services/constants");
+const excludePassword =
+    "`id`, `name`, `birth`, `gender`, `email`, `phone`, `favorite`, `is_admin`";
 
 module.exports = {
     async findByID(conn, query) {
@@ -11,7 +13,7 @@ module.exports = {
     },
 
     async findAll(conn, query) {
-        const [rows] = await conn.query("SELECT * FROM user");
+        const [rows] = await conn.query(`SELECT ${excludePassword} FROM user`);
         return rows;
     },
 
