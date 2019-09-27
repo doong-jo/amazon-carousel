@@ -366,7 +366,7 @@ class Form extends Component {
             return;
         }
 
-        await requestServer(
+        return await requestServer(
             "POST",
             getRefactedFormData(this.formData),
             serverUrl

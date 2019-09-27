@@ -141,17 +141,9 @@ class Signup extends Page {
     async doSignup(id, pwd) {
         const response = await this.signupForm.submit(_.URL.SIGNUP);
         if (response) {
-            const response = await requestServer(
-                _.METHOD.POST,
-                { id, pwd },
-                _.URL.LOGIN
-            );
+            await requestServer(_.METHOD.POST, { id, pwd }, _.URL.LOGIN);
+            goToPage(_.PAGE_HASH.MAIN);
 
-            if (!response) {
-                alert("가입에 실패했습니다.");
-                return;
-            }
-            goToPage(_.PAGE_HASH.TODO);
             return;
         }
         alert("가입에 실패했습니다.");
