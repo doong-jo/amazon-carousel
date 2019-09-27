@@ -8,7 +8,33 @@ async function fetchUserData() {
 }
 
 $(document).ready(async function() {
-    $("#dataTable").DataTable();
     const userData = await fetchUserData();
-    console.log(await userData.json());
+    userData.json().then(data => {
+        console.log("userDataJson", data);
+        const table = $("#dataTable").DataTable({
+            // processing: true,
+            // serverSide: true,
+            // bPaginate: true,
+            // sPaginationType: "full_numbers",
+            // paging: true,
+            columns: [
+                { data: "id" },
+                { data: "name" },
+                { data: "birth" },
+                { data: "gender" },
+                { data: "email" },
+                { data: "phone" },
+                { data: "favorite" },
+                { data: "is_admin" }
+            ]
+        });
+
+        table.clear();
+        table.rows.add(data);
+        table.draw();
+    });
+
+    // "`id`, `name`, `birth`, `gender`, `email`, `phone`, `favorite`, `is_admin`";
+
+    // table.api().ajax.reload();
 });

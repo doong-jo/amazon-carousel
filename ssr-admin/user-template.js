@@ -71,34 +71,27 @@ function getUserTemplate(script, style) {
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Birth</th>
-                            <th>Admin</th>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>birth</th>
+                            <th>gender</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>favorite</th>
+                            <th>is_admin</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Birth</th>
-                            <th>Admin</th>
-                        </tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>birth</th>
+                            <th>gender</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>favorite</th>
+                            <th>is_admin</th>
                         </tfoot>
-                        <tbody>
-                        <tr>
-                            <td>josungdong</td>
-                            <td>조성동</td>
-                            <td>josungdong@naver.com</td>
-                            <td>01034823161</td>
-                            <td>1994-04-19</td>
-                            <td>관리자</td>
-                        </tr>
-                        </tbody>
                     </table>
                     </div>
                 </div>
