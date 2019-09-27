@@ -19,7 +19,7 @@
 ### 🏠 [Homepage](https://github.com/doong-jo/membership-amazon#readme)
 
 ## Demo
-### [heroku app](https://awesome-carousel.herokuapp.com/) 👀
+### [membership-amazon](http://106.10.32.179) 👀
 
 ## Install
 
