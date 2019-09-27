@@ -25,6 +25,56 @@ npm install && npm run prod
 vim env (write your environment)
 ```
 
+## env
+```sh
+DB_HOST=?
+DB_USER=?
+DB_PASSWORD=?
+DB_NAME=?
+REDIS_SECRET=?
+```
+
+## Directory
+```bash
+server
+├─ api       // ...user
+├─ models    // ...user
+├─ routes    // ...router
+├─ services  // ...services (auth, admin ...)
+└─ ssr-admin // html, css, js
+
+public
+├─ img         
+├─ js
+│   ├─ components
+│   │   ├─ component.js
+│   │   ├─ card.js
+│   │   ├─ carousel.js
+│   │   ├─ form.js
+│   │   ├─ modal.js
+│   │   └─ taglist.js
+│   ├─ pages
+│   │   ├─ login.js
+│   │   ├─ main.js
+│   │   ├─ page.js
+│   │   └─ signup.js
+│   ├─ services
+│   │   ├─ constants.js
+│   │   └─ form-validator.js
+│   └─ utils
+│   │   ├─ util.js
+│   │   ├─ light-dom.js
+│   │   ├─ node-builder.js
+│   │   └─ light-api.js
+│   ├─ index.js
+│   └─ router.js
+├─ json
+├─ lib
+├─ styles   // css, scss
+├─ views    // htmls
+└─ webfonts
+```
+
 ## Usage
 
 ```sh
