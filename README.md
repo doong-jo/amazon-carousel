@@ -13,7 +13,8 @@
 </p>
 
 ## 📺 Demo
-### [amazon-carousel](https://awesome-carousel.herokuapp.com/)
+### [Clone](https://awesome-carousel.herokuapp.com/)
+### [Origin](https://www.amazon.co.jp/amazonprime?_encoding=UTF8&%2AVersion%2A=1&%2Aentries%2A=0)
 
 
 ## Author
